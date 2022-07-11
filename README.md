@@ -1,6 +1,7 @@
-# ai_horror_story
+# ai horror story webapp setup
 Setting up a webapp for a three sentence ai horror story generated from topic from user
 
+requires free accounts with: Openai.com & pythonanywhere.com
 Instructions for setting up your webapp
 
 1. create an account on openai.com (this is primarily for getting an API Key to use later)
