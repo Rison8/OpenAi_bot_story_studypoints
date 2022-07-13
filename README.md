@@ -1,4 +1,4 @@
-# ai horror story webapp setup
+# OpenAi bot story and study points webapp setup
 Setting up a webapp for a three sentence ai horror story generated from topic from user
 
 requires free accounts with: Openai.com & pythonanywhere.com
@@ -14,7 +14,9 @@ Instructions for setting up your webapp
 6. on the pythonanywhere home page, click on files. There is a link on it called 'Open Bash Console here'. Click on it.
 7. you will get a linux terminal prompt. type in the following command and hit enter: pip install openai
 8. after some time has passed it will have installed the package and dependencies with a successful message. This console is where you go if you want to install other python packages to use in your .py scripts
-9. (replace insertpythonanywhereusername with your username you used to create your pythonanywhere account) ->paste into the url the follow: insertpythonanywhereusername.pythonanywhere.com/?input=
+9. (replace insertpythonanywhereusername with your username you used to create your pythonanywhere account) ->paste into the url the follow: insertpythonanywhereusername.pythonanywhere.com/horrorstory/?input=
 10. type in a phrase to generate a three sentence horror story after ?input=then hit enter
 11. If everything has gone to plan you should get a horror story output*!
 * note there are likely to be a number of fiddly bits that may mean this does not occur the first time and you are presented with a error message screen instead.
+
+Change the folder in the url for either marv or study_notes
