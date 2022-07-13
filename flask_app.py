@@ -8,26 +8,69 @@ import json
 import os
 import openai
 
-openai.api_key = "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"
-
-app = Flask(__name__)
-@app.route('/', methods =['GET','POST'])
+openai.api_key = "YOUR_API_GOES_HERE" #generate an API from OpenAI and put it inside the quotes
 
 
+app = Flask(__name__, template_folder='.')
+
+#home
+@app.route("/")
+def home():
+    return render_template("index.html") #make sure you have an index.html file in the same place as this code
+
+@app.route('/horrorstory/', methods =['GET','POST'])
 def handle_request():
     topic_starter = str("Topic: "+request.args.get('input'))
-    ai_input = 'Three-Sentence Horror Story:'
+    ai_input = 'Three-Sentence Horror Story:\n'
     response = openai.Completion.create(
     model="text-davinci-002",
-    prompt=topic_starter+ai_input,
+    prompt=ai_input+topic_starter,
     temperature=0.8,
-    max_tokens=300,
+    max_tokens=350,
     top_p=1,
     frequency_penalty=0.7,
     presence_penalty=0.5
     )
     output_text = response['choices'][0]['text']
     output_text = output_text.strip('\n')
-    data_set = {'User Input': topic_starter , 'Three-Sentence Horror Story': output_text}
-    json_dump = json.dumps(data_set)
-    return json_dump
+    output_simple_text = "Short Horror Story: " + output_text
+    #data_set = {'User Input': topic_starter , 'Three-Sentence Horror Story': output_text}
+    #json_dump = json.dumps(data_set)
+    return f"{output_simple_text}"
+
+@app.route('/sarcastic_marv/', methods =['GET','POST'])
+def marv_request():
+  marv_starter = str(request.args.get('input'))
+  ai_input ='Marv is a chatbot that reluctantly answers questions with sarcastic responses:\n'
+  response = openai.Completion.create(
+  model="text-davinci-002",
+  prompt=ai_input+marv_starter,
+  temperature=0.5,
+  max_tokens=300,
+  top_p=0.3,
+  frequency_penalty=0.5,
+  presence_penalty=0
+  )
+  marv_text = response['choices'][0]['text']
+  marv_text = marv_text.strip('\n')
+  marv_text_simple = "Marv: " + marv_text
+  return f"{marv_text_simple}"
+
+
+@app.route('/study_notes/', methods =['GET','POST'])
+def sn_request():
+  sn_starter = str(request.args.get('input'))
+  ai_input ='What are 5 key points I should know when studying\n'
+  response = openai.Completion.create(
+  model="text-davinci-002",
+  prompt=ai_input+sn_starter,
+  temperature=0.3,
+  max_tokens=200,
+  top_p=1,
+  frequency_penalty=0,
+  presence_penalty=0
+  )
+  sn_text = response['choices'][0]['text']
+  sn_text = sn_text.strip('\n')
+  sn_text_simple = "5 key points: " + sn_text
+  return f"{sn_text_simple}"
