@@ -74,3 +74,22 @@ def sn_request():
   sn_text = sn_text.strip('\n')
   sn_text_simple = "5 key points: " + sn_text
   return f"{sn_text_simple}"
+
+@app.route('/jeff/', methods =['GET','POST'])
+def jeff_request():
+  jeff_starter = str(request.args.get('input'))
+  #start_sequence = "\nJeff:"
+  #restart_sequence = "\nYou: "
+  response = openai.Completion.create(
+  model="text-davinci-002",
+  prompt=jeff_starter,
+  temperature=0.5,
+  max_tokens=90,
+  top_p=1,
+  frequency_penalty=0.7,
+  presence_penalty=0.5
+  )
+  jeff_text = response['choices'][0]['text']
+  jeff_text = jeff_text.strip('\n')
+  jeff_text_simple = "Jeff cares: " + jeff_text
+  return f"{jeff_text_simple}"
