@@ -93,3 +93,41 @@ def jeff_request():
   jeff_text = jeff_text.strip('\n')
   jeff_text_simple = "Jeff cares: " + jeff_text
   return f"{jeff_text_simple}"
+
+@app.route('/random_horrorstory/', methods =['GET','POST'])
+def horrorstory_extended_request():
+    ai_input = 'multiple sentence horror story random prompt:\n'
+    response = openai.Completion.create(
+    model="text-davinci-002",
+    prompt=ai_input,
+    temperature=0.7,
+    max_tokens=1000,
+    top_p=1,
+    frequency_penalty=0.3,
+    presence_penalty=0.2
+    )
+    output_text = response['choices'][0]['text']
+    output_text = output_text.strip('\n')
+    data_set = {'Horror Story': "Random Horror Story: " + output_text}
+    json_dump = json.dumps(data_set)
+    #convert string to  object
+    json_object = json.loads(json_dump)
+    return json_object["Horror Story"]
+
+@app.route('/random_song_genre/', methods =['GET','POST'])
+def random_song_genre_request():
+  req_genre = str(request.args.get('input'))
+  ai_input = 'Random song request by ' + req_genre + '\n'
+  response = openai.Completion.create(
+  model="text-davinci-002",
+  prompt=ai_input,
+  temperature=0.7,
+  max_tokens=150,
+  top_p=1,
+  frequency_penalty=0.9,
+  presence_penalty=0.9
+  )
+  rsgr_text = response['choices'][0]['text']
+  rsgr_text = rsgr_text.strip('\n')
+  rsgr_text_simple = "Random Song: " + rsgr_text
+  return f"{rsgr_text_simple}"
