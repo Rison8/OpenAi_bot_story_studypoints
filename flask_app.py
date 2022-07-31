@@ -131,3 +131,17 @@ def random_song_genre_request():
   rsgr_text = rsgr_text.strip('\n')
   rsgr_text_simple = "Random Song: " + rsgr_text
   return f"{rsgr_text_simple}"
+
+
+from werkzeug.exceptions import HTTPException
+
+@app.errorhandler(Exception)
+def handle_exception(e):
+    # pass through HTTP errors
+    if isinstance(e, HTTPException):
+        return e
+
+    # now you're handling non-HTTP exceptions only
+    return "Sorry - this application is currently offline pending approval for more credits from OpenAI. Therefore Horry Story, chat with Jeff, chat with Marv and random song genre generators are all offline"
+    # render_template("500_generic.html", e=e), 500
+
